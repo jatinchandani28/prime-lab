@@ -1,0 +1,53 @@
+service: wallet-service
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: ${file(../serverless-config.json):region}
+  stage: ${opt:stage, 'dev'}
+  timeout: 5
+  environment:
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1 # https://go.aws/3InkVao
+    REGION: ${self:provider.region}
+
+  httpApi:
+    id: !ImportValue NearGatewayHttpApiId
+  iam:
+    role:
+      statements:
+        - Effect: 'Allow'
+          Action:
+            - dynamodb:BatchGet*
+            - dynamodb:DescribeStream
+            - dynamodb:DescribeTable
+            - dynamodb:Get*
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:BatchWrite*
+            - dynamodb:CreateTable
+            - dynamodb:Delete*
+            - dynamodb:Update*
+            - dynamodb:PutItem
+            - ssm:DescribeParameters
+            - ssm:GetParameter
+            - ssm:GetParameters
+          Resource:
+            - arn:aws:dynamodb:*:*:*
+            - arn:aws:dynamodb:*:*:*/*/index/*
+            - arn:aws:ssm:*
+
+functions:
+  - ${file(./lambda/import-wallet/config.yml)}
+  - ${file(./lambda/create-wallet/config.yml)}
+  - ${file(./lambda/retrieve-wallet/config.yml)}
+  - ${file(./lambda/edit-wallet/config.yml)}
+  - ${file(./lambda/fetch-wallets/config.yml)}
+  - ${file(./lambda/delete-wallet/config.yml)}
+  - ${file(./lambda/verify-wallet/config.yml)}
+
+plugins:
+  - serverless-offline
+  - serverless-dynamodb-local
+  - serverless-iam-roles-per-function

@@ -1,0 +1,29 @@
+requestShare:
+  handler: lambda/requestShare/index.handler
+  description: "Allows user make a share request on a file to another wallet"
+  events:
+    - httpApi:
+        path: /wallets/{walletId}/files/{fileId}/share
+        method: post
+        authorizer:
+          type: request
+          id: !ImportValue NearGatewayAuthorizerId
+  environment:
+    TABLE_NAME_FILES: ${self:custom.file-service.dynamodb.files.name}
+    ## TODO: use ${ssm:/dynamodb/wallet-service/wallets/name} when exported by Terraform
+    TABLE_NAME_WALLETS: near-wallets
+  iamRoleStatementsInherit: true
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:UpdateItem
+        - dynamodb:GetItem
+      Resource:
+         - ${self:custom.file-service.dynamodb.files.arn}
+    - Effect: Allow
+      Action:
+        - dynamodb:GetItem
+      Resource:
+        ## TODO: use ${ssm:/dynamodb/wallet-service/wallets/arn} when exported by Terraform
+        - arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/near-wallets
+

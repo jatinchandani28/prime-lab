@@ -1,0 +1,40 @@
+deleteFile:
+  handler: lambda/deleteFile/index.handler
+  description: "Deletes the user file using the fileId"
+  timeout: 5
+  events:
+    - httpApi:
+        path: /wallets/{walletId}/files/{fileId}
+        method: delete
+        authorizer:
+          type: request
+          id: !ImportValue NearGatewayAuthorizerId
+  environment:
+    # Avoid using Ref here as this may create a Circular dependency between resources https://go.aws/3pk3Nup
+    ## TODO: use ${self:custom.startup-service.filesBucket.name} when # TODO: uncomment this section when https://github.com/nearcomponents/gateway/pull/14 is merged
+    BUCKET_NAME_FILES: ${self:custom.file-service.s3.files.name}
+    TABLE_NAME_FILES: ${self:custom.file-service.dynamodb.files.name}
+    ## TODO: use ${ssm:/dynamodb/wallet-service/wallets/name} when exported by Terraform
+    TABLE_NAME_WALLETS: near-wallets
+  iamRoleStatementsInherit: true
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:GetItem
+      Resource:
+        ## TODO: use ${ssm:/dynamodb/wallet-service/wallets/arn} when exported by Terraform
+        - arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/near-wallets
+    - Effect: Allow
+      Action:
+        - dynamodb:GetItem
+        - dynamodb:DeleteItem
+        - dynamodb:Query
+      Resource:
+        - ${self:custom.file-service.dynamodb.files.arn}
+        - ${self:custom.file-service.dynamodb.files.arn}/*
+    - Effect: Allow
+      Action:
+        - s3:DeleteObject
+      Resource:
+        - Fn::Join: ["/", [!ImportValue FileServiceFilesBucketArn, "*"]]
+

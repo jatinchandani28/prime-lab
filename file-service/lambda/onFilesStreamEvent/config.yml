@@ -1,0 +1,47 @@
+onFilesStreamEvent:
+  handler: lambda/onFilesStreamEvent/index.handler
+  description: "Function triggered from near-files stream upon item creation/update/delete"
+  timeout: 15
+  environment:
+    LAMBDA_FUNCTION_NAME_TRANSACTION_SERVICE_CREATE: arn:aws:lambda:${aws:region}:${aws:accountId}:function:transactionteam10-service-${self:provider.stage}-transactions-create
+  events:
+    - stream:
+        type: dynamodb
+        arn: ${self:custom.file-service.dynamodb.files.streamArn}
+        startingPosition: LATEST
+        bisectBatchOnFunctionError: true
+        maximumRetryAttempts: 2
+        parallelizationFactor: 1
+        batchSize: 100
+        destinations:
+          onFailure:
+            type: sqs
+            arn: !GetAtt DLQonFilesStreamEvent.Arn
+#        filterPatterns:
+#          ## File was successfully uploaded
+#          - eventName: [ MODIFY ]
+#            dynamodb:
+#              OldImage:
+#                hash: [{ exists: false }]
+##              NewImage:
+##                fileHash:
+##                  - {exists: true}
+#          - eventName: [ REMOVE ]
+#            dynamodb:
+#              OldImage:
+#                hash: [ { exists: false } ]
+#        #              NewImage:
+#        #                fileHash:
+#        #                  - {exists: true}
+  iamRoleStatementsInherit: true
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - sqs:SendMessage
+      Resource:
+        - !GetAtt DLQonFilesStreamEvent.Arn
+    - Effect: Allow
+      Action:
+        - lambda:invokeFunction
+      Resource:
+        - arn:aws:lambda:${aws:region}:${aws:accountId}:function:transactionteam10-service-${self:provider.stage}-transactions-create

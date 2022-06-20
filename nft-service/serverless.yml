@@ -1,0 +1,138 @@
+service: nfts-service
+frameworkVersion: '3'
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: 20201221
+  httpApi:
+    id: !ImportValue NearGatewayHttpApiId
+  stage: ${opt:stage, 'dev'}
+  region: ${file(../serverless-config.json):region}
+  apiGateway:
+    apiKeys:
+      - defaultKey
+  environment:
+    DYNAMODB_NEAR_NFTS_TABLE: near-nfts
+    DYNAMODB_WALLET_TABLE: near-wallets
+    DYNAMODB_USER_TABLE: near-users
+    TABLE_NAME_USERS: near-users # TODO: remove the duplicate env var
+    TABLE_NAME_WALLETS: near-wallets
+    TABLE_NAME_CONTACTS: near-contacts
+    TABLE_NAME_NFT_COLLECTIONS: near-nft-collections
+    TABLE_NAME_NFT_CATEGORIES: near-nft-categories
+    TABLE_NAME_TRANSACTIONS: near-transactions
+    SQS_URL_SEND_NFT_GIFT: !Ref sendNftGiftQueue
+    SECRET_KEY: ${file(../serverless-config.json):SECRET_KEY}
+    IS_OFFLINE: false
+    TOKEN_EXPIRY_IN_MILLISECONDS: '1d'
+    DEV_BASEURL: ${file(../serverless-config.json):DEV_BASE_URL}
+    PROD_BASEURL: ${file(../serverless-config.json):PROD_BASE_URL}
+  iam:
+    role:
+      statements:
+        ## TODO: granting such large privilege is dangerous. Replace with sls plugin role per function
+        - Effect: 'Allow'
+          Action:
+            - 'sns:Publish'
+          Resource: '*'
+        - Effect: Allow
+          Action:
+            - 'ses:SendEmail'
+            - 'ses:SendRawEmail'
+          Resource:
+            - 'arn:aws:ses:*'
+        - Effect: 'Allow'
+          Action:
+            - 'dynamodb:Query'
+            - 'dynamodb:Scan'
+            - 'dynamodb:PutItem'
+            - 'dynamodb:UpdateItem'
+            - 'dynamodb:GetItem'
+            - 'dynamodb:BatchGetItem'
+            - 'dynamodb:BatchWriteItem'
+            - 'ssm:GetParameter'
+            - 'ssm:GetParameters'
+          Resource:
+            - 'arn:aws:dynamodb:*:*:*'
+            - 'arn:aws:dynamodb:*:*:*/*/index/*'
+            - arn:aws:ssm:*
+        - Effect: Allow
+          Action:
+            - sqs:Send*
+          Resource:
+            - !GetAtt sendNftGiftQueue.Arn
+
+functions:
+  create-nft:
+    handler: create.handler
+    events:
+      - httpApi:
+          path: /nfts
+          method: post
+  update-nft:
+    handler: update.handler
+    events:
+      - httpApi:
+          path: /nfts/update/{nftId}
+          method: patch
+  delete-nft:
+    handler: delete.handler
+    events:
+      - httpApi:
+          path: /nfts/{nftId}
+          method: delete
+  list:
+    handler: list.handler
+    events:
+      - httpApi:
+          path: /nfts/list
+          method: get
+  claim-nft:
+    handler: claim.handler
+    events:
+      - httpApi:
+          path: /nfts/{nftId}/claim/{claimToken}
+          method: get
+  get-nft:
+    handler: get.handler
+    events:
+      - httpApi:
+          path: /nfts/{nftId}
+          method: get
+  send-nft:
+    handler: send.handler
+    events:
+      - httpApi:
+          path: /nfts/{nftId}/send
+          method: post
+  gift-nft:
+    handler: gift.handler
+    events:
+      - httpApi:
+          path: /nfts/{nftId}/gift
+          method: post
+  swap-nft:
+    handler: swap.handler
+    events:
+      - httpApi:
+          path: /nfts/{nftId}/swap
+          method: post
+  sendGiftNft:
+    handler: sendGiftNft.handler
+    description: Triggered by sendNftGiftQueue to send transaction and email/sms notification
+    timeout: 30
+    events:
+      - sqs:
+          arn: !GetAtt sendNftGiftQueue.Arn
+          batchSize: 10
+          maximumBatchingWindow: 10
+          functionResponseType: ReportBatchItemFailures
+
+resources:
+  - Description: NFT Service API stack
+  ### SQS
+  - ${file(./sqs/queue.yml)}

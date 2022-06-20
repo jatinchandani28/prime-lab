@@ -1,0 +1,35 @@
+onFileUploaded:
+  handler: lambda/onFileUploaded/index.handler
+  description: "Function triggered upon file upload to near-files-STAGE buckets"
+  environment:
+    ## TODO: use ${ssm:/dynamodb/file-service/files/name} when exported by Terraform
+    TABLE_NAME_FILES: near-files
+    LAMBDA_FUNCTION_NAME_HASH_SERVICE_CREATE_HASH: hash-service-${self:provider.stage}-createHash
+  destinations:
+    # re-drive failed notification events to a DLQ
+    onFailure: arn:aws:sqs:${aws:region}:${aws:accountId}:${self:service}-${self:provider.stage}-DLQ-onFileUploaded
+### Comment this "events" when you deploy the stack the first time, then uncomment and redeploy
+  events:
+    - s3:
+        bucket: ${cf:near-gateway-${self:provider.stage}.FileServiceFilesBucketName}
+        existing: true
+        event: s3:ObjectCreated:*
+  iamRoleStatementsInherit: true
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:UpdateItem
+      Resource:
+        ## TODO: use ${ssm:/dynamodb/file-service/files/arn} when exported by Terraform
+        - arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/near-files
+    - Effect: Allow
+      Action:
+        - sqs:SendMessage
+      Resource:
+        - !GetAtt DLQonFileUploaded.Arn
+    - Effect: Allow
+      Action:
+        - lambda:invokeFunction
+      Resource:
+        - arn:aws:lambda:${aws:region}:${aws:accountId}:function:hash-service-${self:provider.stage}-createHash
+

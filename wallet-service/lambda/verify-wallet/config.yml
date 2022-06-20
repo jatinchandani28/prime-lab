@@ -1,0 +1,17 @@
+verify-wallet:
+  handler: lambda/verify-wallet/index.handler
+  description: "Verify wallet"
+  events:
+    - httpApi:
+        path: /wallets/verify/{walletId}
+        method: GET
+  environment:
+    TABLE_NAME_WALLETS: near-wallets
+  iamRoleStatementsInherit: true
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:GetItem
+        - dynamodb:UpdateItem
+      Resource:
+        - arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/near-wallets

@@ -1,0 +1,64 @@
+service: transaction-post-service
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  stage: dev
+  runtime: nodejs14.x
+  region: us-east-1
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - dynamodb:BatchGet*
+            - dynamodb:DescribeStream
+            - dynamodb:DescribeTable
+            - dynamodb:Get*
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:BatchWrite*
+            - dynamodb:CreateTable
+            - dynamodb:Delete*
+            - dynamodb:Update*
+            - dynamodb:PutItem
+          Resource: "arn:aws:dynamodb:*:*:*"
+        - Effect: Allow
+          Action:
+            - sqs:*
+          Resource: "*"
+        - Effect: "Allow"
+          Action:
+            - logs:*
+            - ssm:*
+          Resource: "*"
+        - Effect: Allow
+          Action:
+            - secretsmanager:*        
+          Resource: "*"
+
+functions:
+  process-get-fee-analytics:
+    handler: process-get-fee-analytics.handler
+    timeout: 30
+    events:
+      - sqs: "arn:aws:sqs:us-east-1:${aws:accountId}:callAnalytics"
+  process-analytics:
+    handler: process-analytics.handler
+    timeout: 30
+    events:
+      - sqs: "arn:aws:sqs:us-east-1:${aws:accountId}:callAnalyticsV2"
+    layers:
+      - "arn:aws:lambda:us-east-1:${aws:accountId}:layer:near-cli:5"  
+  process-transaction:
+    handler: process-transaction.handler
+    timeout: 30
+    events:
+      - sqs: "arn:aws:sqs:us-east-1:${aws:accountId}:callPostTransaction"
+  process-log-file:
+    handler: process-log-file.handler
+    timeout: 30
+    events:
+      - sqs: "arn:aws:sqs:us-east-1:${aws:accountId}:callLogFile"
+    layers:
+      - "arn:aws:lambda:us-east-1:${aws:accountId}:layer:near-cli:5"  

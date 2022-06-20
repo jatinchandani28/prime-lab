@@ -1,0 +1,16 @@
+{
+  "name": "create-file",
+  "version": "1.0.0",
+  "description": "Initiate file creation by generating a pre-signed S3 URL",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "http-status-codes": "^2.2.0",
+    "uuid": "^8.3.2"
+  }
+}

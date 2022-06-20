@@ -1,0 +1,121 @@
+service: user-service
+frameworkVersion: '3'
+
+plugins:
+  - serverless-dynamodb-local
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: ${file(../serverless-config.json):region}
+  apiGateway:
+    apiKeys:
+      - defaultKey
+  httpApi:
+    id: !ImportValue NearGatewayHttpApiId
+  environment:
+    DYNAMODB_USER_TABLE: 'near-users'
+    DYNAMODB_WALLET_TABLE: 'near-wallets'
+    DYNAMODB_OTP_TABLE: 'near-otp'
+    OTP_EXPIRY_IN_SECONDS: 900
+    TOKEN_EXPIRY_IN_MILLISECONDS: '1d'
+    REFRESH_TOKEN_EXPIRY_IN_MILLISECONDS: '30d'
+    KYC_REQUIRED_AFTER_DAYS: 90
+    INDEXER_API_URL: 'https://api.nearindexer.io'
+    INDEXER_STATIC_JWT_TOKEN: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMjN9.2yAsJ_EPG_G6bXHJ0lBLbGz-97FlJlWqvclzrN7U9Fg'
+
+    
+  iam:
+    role:
+      statements:
+        - Effect: 'Allow'
+          Action:
+            - 'sns:Publish'
+          Resource: '*'
+        - Effect: 'Allow'
+          Action:
+            - 'dynamodb:Query'
+            - 'dynamodb:Scan'
+            - 'dynamodb:PutItem'
+            - 'dynamodb:UpdateItem'
+            - 'dynamodb:GetItem'
+            - 'dynamodb:DeleteItem'
+            - 'dynamodb:BatchGetItem'
+            - 'dynamodb:BatchWriteItem'
+            - 'ssm:DescribeParameters'
+            - 'ssm:GetParameter'
+            - 'ssm:GetParameters'
+            - 'ses:SendEmail'
+            - 'ses:SendRawEmail'
+          Resource:
+            - 'arn:aws:dynamodb:*:*:*'
+            - 'arn:aws:dynamodb:*:*:*/*/index/*'
+            - 'arn:aws:ssm:*'
+            - 'arn:aws:ses:*'
+
+functions:
+  - ${file(./lambda/create-user/config.yml)}
+  - ${file(./lambda/get-user/config.yml)}
+  - ${file(./lambda/update-user/config.yml)}
+  - ${file(./lambda/login-user/config.yml)}
+  - ${file(./lambda/verify-user/config.yml)}
+  - ${file(./lambda/verify-otp/config.yml)}
+  - ${file(./lambda/verify-jwt/config.yml)}
+  - ${file(./lambda/check-phone/config.yml)}
+  - ${file(./lambda/delete-user/config.yml)}
+custom:
+  dynamodb:
+    stages:
+      - dev
+    start:
+      port: 8000
+      inMemory: true
+      heapInitial: 200m
+      heapMax: 1g
+      migrate: true
+      seed: true
+      convertEmptyValues: true
+
+resources:
+  Resources:
+    userTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: near-users
+        AttributeDefinitions:
+          - AttributeName: userId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userId
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+    walletsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: near-wallets
+        AttributeDefinitions:
+          - AttributeName: walletId
+            AttributeType: S
+          - AttributeName: walletName
+            AttributeType: S
+        KeySchema:
+          - AttributeName: walletId
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: walletName-Index
+            KeySchema:
+              - AttributeName: walletName
+                KeyType: HASH
+              - AttributeName: walletId
+                KeyType: RANGE
+            ProvisionedThroughput:
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1
+            Projection:
+              ProjectionType: 'ALL'
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1

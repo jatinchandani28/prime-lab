@@ -1,0 +1,14 @@
+{
+  "name": "on-file-uploaded-file",
+  "version": "1.0.0",
+  "description": "Function triggered upon file upload to near-files-STAGE buckets",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "http-status-codes": "^2.2.0"
+  }
+}

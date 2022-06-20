@@ -1,0 +1,7 @@
+verify-user:
+  handler: lambda/verify-user/index.handler
+  description: ""
+  events:
+    - httpApi:
+        path: /users/login/verify
+        method: post 

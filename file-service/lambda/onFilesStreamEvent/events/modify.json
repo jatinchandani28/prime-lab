@@ -1,0 +1,128 @@
+{
+  "Records": [
+    {
+      "eventID": "492bd29592b769792f19c7ae4408b4f4",
+      "eventName": "MODIFY",
+      "eventVersion": "1.1",
+      "eventSource": "aws:dynamodb",
+      "awsRegion": "us-east-1",
+      "dynamodb": {
+        "ApproximateCreationDateTime": 1646228095,
+        "Keys": {
+          "walletId": {
+            "S": "4jMxtWsTYB1h31a_UJpvU"
+          },
+          "fileId": {
+            "S": "e27fbbec-cb20-4d03-a0b4-b662a2821d26"
+          }
+        },
+        "NewImage": {
+          "walletId": {
+            "S": "4jMxtWsTYB1h31a_UJpvU"
+          },
+          "storageProvider": {
+            "S": "Google Drive"
+          },
+          "created": {
+            "S": "2022-03-01T19:10:27.767Z"
+          },
+          "description": {
+            "S": "description "
+          },
+          "ownerId": {
+            "S": "wafgesh.near"
+          },
+          "userId": {
+            "S": "Bsp12z1JNMWrY5hINxYtr"
+          },
+          "path": {
+            "S": "/myDrive/myfile.png"
+          },
+          "sharedAt": {
+            "S": "2022-03-02T13:34:53.547Z"
+          },
+          "size": {
+            "N": "392877"
+          },
+          "name": {
+            "S": "myfile.png"
+          },
+          "dataEncryptionKey": {
+            "M": {
+              "encrypted": {
+                "S": "94c5aa67-76dd-480c-970a-fd5ac99ea5e5"
+              },
+              "md5": {
+                "S": "hRQTQ+9doFQNTJCe7tlKXg=="
+              }
+            }
+          },
+          "updated": {
+            "S": "2022-03-01T19:15:09.741Z"
+          },
+          "hash": {
+            "S": "a684cc78f9dc42dc93f13bf35829794bb7113eae378e7c977900abfd3dc1b0a7a0e732f52608b7585b093c31389d331b"
+          },
+          "fileId": {
+            "S": "e27fbbec-cb20-4d03-a0b4-b662a2821d26"
+          }
+        },
+        "OldImage": {
+          "walletId": {
+            "S": "4jMxtWsTYB1h31a_UJpvU"
+          },
+          "storageProvider": {
+            "S": "Google Drive"
+          },
+          "created": {
+            "S": "2022-03-01T19:10:27.767Z"
+          },
+          "description": {
+            "S": "description "
+          },
+          "ownerId": {
+            "S": "wafgesh.near"
+          },
+          "userId": {
+            "S": "Bsp12z1JNMWrY5hINxYtr"
+          },
+          "path": {
+            "S": "/myDrive/myfile.png"
+          },
+          "sharedAt": {
+            "S": "2022-03-02T13:33:12.274Z"
+          },
+          "size": {
+            "N": "392877"
+          },
+          "name": {
+            "S": "myfile.png"
+          },
+          "dataEncryptionKey": {
+            "M": {
+              "encrypted": {
+                "S": "94c5aa67-76dd-480c-970a-fd5ac99ea5e5"
+              },
+              "md5": {
+                "S": "hRQTQ+9doFQNTJCe7tlKXg=="
+              }
+            }
+          },
+          "updated": {
+            "S": "2022-03-01T19:15:09.741Z"
+          },
+          "hash": {
+            "S": "a684cc78f9dc42dc93f13bf35829794bb7113eae378e7c977900abfd3dc1b0a7a0e732f52608b7585b093c31389d331b"
+          },
+          "fileId": {
+            "S": "e27fbbec-cb20-4d03-a0b4-b662a2821d26"
+          }
+        },
+        "SequenceNumber": "6172600000000020513220104",
+        "SizeBytes": 1071,
+        "StreamViewType": "NEW_AND_OLD_IMAGES"
+      },
+      "eventSourceARN": "arn:aws:dynamodb:us-east-1:227200131463:table/near-files/stream/2022-03-01T05:07:11.480"
+    }
+  ]
+}

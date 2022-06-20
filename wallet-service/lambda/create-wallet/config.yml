@@ -1,0 +1,16 @@
+create-Wallet:
+  handler: lambda/create-wallet/index.handler
+  description: "Wallet creation"
+  events:
+    - httpApi:
+        path: /wallets
+        method: post
+  environment:
+    TABLE_NAME_WALLETS: near-wallets
+  iamRoleStatementsInherit: true
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:UpdateItem
+      Resource:
+        - arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/near-wallets

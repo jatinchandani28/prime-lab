@@ -1,0 +1,146 @@
+service: kyc-service
+frameworkVersion: '3'
+
+plugins:
+  - serverless-dynamodb-local
+  - serverless-offline
+
+# custom:
+# dynamodb:
+#   stages:
+#     - dev
+#   start:
+#     port: 8000
+#     inMemory: true
+#     migrate: true # create tables on start
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: ${file(../serverless-config.json):region}
+  apiGateway:
+    apiKeys:
+      - defaultKey
+  environment:
+    STAGE: ${self:custom.stage}
+    DATABASE_SERVICE_NAME: ${self:custom.databaseServiceName}
+    DYNAMODB_APPS_TABLE: 'apps'
+    DYNAMODB_APP_CATEGORIES_TABLE: 'appCategories'
+    DYNAMODB_KYC_INFO_TABLE: 'userKYCInfo'
+    TOKEN_EXPIRY_IN_MILLISECONDS: 3600
+    REFRESH_TOKEN_EXPIRY_IN_MILLISECONDS: 3600
+    SECRET_KEY: 'MyAwesomeKey'
+    REFRESH_SECRET_KEY: 'MyUltraSecretKey'
+    KYC_REQUIRED_AFTER_DAYS: 90
+  httpApi:
+    cors: true
+  iamRoleStatements:
+    - Effect: 'Allow'
+      Action:
+        - 'dynamodb:Query'
+        - 'dynamodb:Scan'
+        - 'dynamodb:PutItem'
+        - 'dynamodb:UpdateItem'
+        - 'dynamodb:GetItem'
+        - 'dynamodb:BatchGetItem'
+        - 'dynamodb:BatchWriteItem'
+      Resource:
+        - 'arn:aws:dynamodb:*:*:*'
+        - 'arn:aws:dynamodb:*:*:*/*/index/*'
+
+functions:
+  getAllCategories:
+    handler: filter.getAllCategories
+    events:
+      - httpApi:
+          path: /filter/getallcategories/
+          method: get
+
+  getByName:
+    handler: filter.getByKeyword
+    events:
+      - httpApi:
+          path: /filter/getbykeyword/{keyword}
+          method: get
+
+  getByCategory:
+    handler: filter.getByCategories
+    events:
+      - httpApi:
+          path: /filter/getbycategory/{categories}
+          method: get
+
+  checkKYCStatus:
+    handler: check-kyc-status.handler
+    events:
+      - httpApi:
+          path: /kyc/getkycstatus/{walletId}
+          method: get
+
+
+  create-user:
+    handler: register.handler
+    events:
+      - httpApi:
+          path: /users
+          method: post
+
+  login:
+    handler: login.handler
+    events:
+      - httpApi:
+          path: /users/login
+          method: post
+
+  login-confirm:
+    handler: verify-otp.handler
+    events:
+      - httpApi:
+          path: /users/login/verify
+          method: post
+
+  logout:
+    handler: logout.handler
+    events:
+      - httpApi:
+          path: /users/logout
+          method: post
+
+resources:
+  Resources:
+    UsersTable:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
+      Properties:
+        TableName: near-users
+        AttributeDefinitions:
+          - AttributeName: userId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userId
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+    WalletTable:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
+      Properties:
+        TableName: near-wallet
+        AttributeDefinitions:
+          - AttributeName: userId
+            AttributeType: S
+          - AttributeName: walletId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: walletId
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: userIdIndex
+            KeySchema:
+              - AttributeName: userId
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            ProvisionedThroughput:
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1
+        BillingMode: PAY_PER_REQUEST

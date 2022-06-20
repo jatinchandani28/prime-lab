@@ -1,0 +1,23 @@
+completeUpload:
+  handler: lambda/completeUpload/index.handler
+  description: "Endpoint to confirm multipart upload termination"
+  events:
+    - httpApi:
+        path: /wallets/{walletId}/files/{fileId}/completeUpload
+        method: post
+  environment:
+    BUCKET_NAME_FILES: ${self:custom.file-service.s3.files.name}
+    TABLE_NAME_FILES: ${self:custom.file-service.dynamodb.files.name}
+  iamRoleStatementsInherit: true
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:GetItem
+      Resource:
+        - ${self:custom.file-service.dynamodb.files.arn}
+    - Effect: Allow
+      Action:
+        - s3:PutObject
+        - s3:PutObjectAcl
+      Resource:
+        - Fn::Join: ["/", [!ImportValue FileServiceFilesBucketArn, "*"]]

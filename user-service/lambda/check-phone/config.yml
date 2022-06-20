@@ -1,0 +1,6 @@
+verify-phone:
+  handler: lambda/check-phone/index.handler
+  events:
+    - httpApi:
+        path: /users/check/phone
+        method: post

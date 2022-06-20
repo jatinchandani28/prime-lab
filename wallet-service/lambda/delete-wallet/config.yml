@@ -1,0 +1,17 @@
+delete-wallet:
+  handler: lambda/delete-wallet/index.handler
+  description: "Deletes wallet from database"
+  events:
+    - httpApi:
+        path: /wallets/{walletId}
+        method: delete
+  environment:
+    TABLE_NAME_WALLETS: near-wallets
+  iamRoleStatementsInherit: true
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:GetItem
+        - dynamodb:DeleteItem
+      Resource:
+        - arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/near-wallets

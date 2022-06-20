@@ -1,0 +1,72 @@
+service: app-service
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  stage: dev
+  runtime: nodejs14.x
+  region: ${file(../serverless-config.json):region}
+  environment:
+    APP_LINK_BASE_URL: "APP_LINK_BASE_URL"
+  httpApi:
+    id: !ImportValue NearGatewayHttpApiId
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - dynamodb:BatchGet*
+            - dynamodb:DescribeStream
+            - dynamodb:DescribeTable
+            - dynamodb:Get*
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:BatchWrite*
+            - dynamodb:CreateTable
+            - dynamodb:Delete*
+            - dynamodb:Update*
+            - dynamodb:PutItem
+            - "ses:SendEmail"
+          Resource: 
+            - "arn:aws:dynamodb:*:*:*"
+            - "arn:aws:ses:*"
+
+functions:
+  apps-list:
+    handler: list.main
+    events:
+     - httpApi:
+          path: /apps
+          method: get
+          authorizer:            
+            type: request
+            id: !ImportValue NearGatewayAuthorizerId
+  apps-get:
+    handler: get.main
+    events:
+     - httpApi:
+        path: /apps/{appId}
+        method: get
+        authorizer:            
+          type: request
+          id: !ImportValue NearGatewayAuthorizerId
+  apps-list-activity-get:
+    handler: list-app-activity.main
+    events:
+     - httpApi:
+        path: /apps/activity/{appId}
+        method: get
+        authorizer:            
+          type: request
+          id: !ImportValue NearGatewayAuthorizerId
+  apps-share:
+    handler: share.main
+    events:
+     - httpApi:
+        path: /apps/share
+        method: post
+        authorizer:            
+          type: request
+          id: !ImportValue NearGatewayAuthorizerId       
+plugins:
+  - serverless-offline

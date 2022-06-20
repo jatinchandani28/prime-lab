@@ -1,0 +1,60 @@
+service: event-service
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  stage: dev
+  runtime: nodejs14.x
+  region: us-east-2
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - dynamodb:BatchGet*
+            - dynamodb:DescribeStream
+            - dynamodb:DescribeTable
+            - dynamodb:Get*
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:BatchWrite*
+            - dynamodb:CreateTable
+            - dynamodb:Delete*
+            - dynamodb:Update*
+            - dynamodb:PutItem
+          Resource: "arn:aws:dynamodb:*:*:*"
+        - Effect: "Allow"
+          Action:
+            - "lambda:InvokeFunction"
+            - "lambda:InvokeAsync"
+          Resource: "*"
+        - Effect: Allow
+          Action:
+            - "sqs:*"
+          Resource: "*"
+
+functions:
+  sqs-events-processor:
+    handler: process-sqs-events.main
+    events:
+      - sqs: arn:aws:sqs:us-east-2:015753658222:nearResponseQueue.fifo
+
+plugins:
+  # - serverless-bundle
+  # - serverless-dotenv-plugin
+  - serverless-offline
+  # - serverless-dynamodb-local
+
+
+# custom:
+#   dynamodb:
+#     stages:
+#       - local
+#     start:
+#       port: 8000
+#       inMemory: true
+#       heapInitial: 200m
+#       heapMax: 1g
+#       migrate: true
+#       seed: true
+#       convertEmptyValues: true

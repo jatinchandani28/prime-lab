@@ -1,0 +1,9 @@
+get-user:
+  handler: lambda/get-user/index.handler
+  description: "Fetch user by userId"
+  events:
+    - httpApi:
+        path: /users/{userId}
+        method: get
+  environment:
+    TABLE_NAME_USERS: near-users

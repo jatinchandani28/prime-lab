@@ -1,0 +1,7 @@
+delete-wallet:
+  handler: lambda/delete-user/index.handler
+  description: "Deletes user from database"
+  events:
+    - httpApi:
+        path: /users/{userId}
+        method: delete

@@ -1,0 +1,123 @@
+service: profile-mgmt
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: ${file(../serverless-config.json):region}
+  apiGateway:
+    apiKeys:
+      - defaultKey
+  httpApi:
+    id: !ImportValue NearGatewayHttpApiId
+  environment:
+    DYNAMODB_USER_TABLE: 'near-users'
+    DYNAMODB_WALLET_TABLE: near-wallets
+    DYNAMODB_OTP_TABLE: near-otp
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - dynamodb:BatchGet*
+            - dynamodb:DescribeStream
+            - dynamodb:DescribeTable
+            - dynamodb:Get*
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:BatchWrite*
+            - dynamodb:CreateTable
+            - dynamodb:Delete*
+            - dynamodb:Update*
+            - dynamodb:PutItem
+          Resource: "arn:aws:dynamodb:*:*:*"
+
+functions:
+  viewProfile:
+    handler: view.main
+    events:
+     - httpApi: 
+         path: /profile/{userId}
+         method: get
+  updateProfile:
+    handler: update.main
+    events:
+     - httpApi: 
+         path: /profile/{userId}
+         method: put
+  deleteProfile:
+    handler: delete.main
+    events:
+     - httpApi: 
+         path: /profile/{userId}
+         method: delete
+
+plugins:
+  - serverless-dynamodb-local
+  - serverless-offline
+
+# custom:
+#  dynamodb:
+#      stages: 
+#         - dev
+#      start: 
+#         port: 8000
+#         inMemory: true
+#         migrate: true
+
+# resources:
+#   Resources:
+#     userTable:
+#       Type: AWS::DynamoDB::Table
+#       Properties:
+#         TableName: near-users
+#         AttributeDefinitions:
+#           - AttributeName: userId
+#             AttributeType: S
+#         KeySchema:
+#           - AttributeName: userId
+#             KeyType: HASH
+#         ProvisionedThroughput:
+#           ReadCapacityUnits: 1
+#           WriteCapacityUnits: 1
+#     otpTable:
+#       Type: AWS::DynamoDB::Table
+#       Properties:
+#         TableName: near-otp
+#         AttributeDefinitions:
+#           - AttributeName: userId
+#             AttributeType: S
+#           - AttributeName: ttl
+#             AttributeType: N
+#         KeySchema:
+#           - AttributeName: userId
+#             KeyType: HASH
+#           - AttributeName: ttl
+#             KeyType: RANGE
+#         ProvisionedThroughput:
+#           ReadCapacityUnits: 1
+#           WriteCapacityUnits: 1
+#     walletsTable:
+#       Type: AWS::DynamoDB::Table
+#       Properties:
+#         TableName: near-wallets
+#         AttributeDefinitions:
+#           - AttributeName: walletId
+#             AttributeType: S
+#           - AttributeName: userId
+#             AttributeType: S
+#         KeySchema:
+#           - AttributeName: walletId
+#             KeyType: HASH
+#         GlobalSecondaryIndexes:
+#           - IndexName: userId-Index
+#             KeySchema:
+#               - AttributeName: userId
+#                 KeyType: HASH
+#             Projection:
+#               ProjectionType: 'ALL'
+#         BillingMode: PAY_PER_REQUEST
+#         ProvisionedThroughput:
+#           ReadCapacityUnits: 1
+#           WriteCapacityUnits: 1

@@ -1,0 +1,6 @@
+verify-otp:
+  handler: lambda/verify-otp/index.handler
+  events:
+    - httpApi:
+        path: /users/otp/verify
+        method: post

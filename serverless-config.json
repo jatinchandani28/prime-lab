@@ -1,0 +1,9 @@
+{
+  "region": "us-east-1",
+  "databaseServiceName": "",
+  "stage": "dev",
+  "SECRET_KEY": "MyAwesomeKey",
+  "REFRESH_SECRET_KEY": "MyUltraSecretKey",
+  "DEV_BASE_URL": "https://api.dev.nearlogin.io",
+  "PROD_BASE_URL": "https://api.dev.nearlogin.io"
+}

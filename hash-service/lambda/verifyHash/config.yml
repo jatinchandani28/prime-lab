@@ -1,0 +1,21 @@
+verifyHash:
+  handler: lambda/verifyHash/index.handler
+  description: "Takes an id, fingerPrint and check if they exist in database"
+  events:
+    - httpApi:
+        path: /hashes/{hash}
+        method: get
+## TODO: fix Error: Serverless Offline only supports retrieving JWT from the headers
+#        authorizer:
+#          type: jwt
+#          id: !ImportValue NearGatewayAuthorizerId
+  environment:
+    TABLE_NAME_HASHES: ${self:custom.hash-service.dynamodb.hashes.name}
+  iamRoleStatementsInherit: true
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:GetItem
+      Resource:
+        - ${self:custom.hash-service.dynamodb.hashes.arn}
+

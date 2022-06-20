@@ -1,0 +1,285 @@
+service: nft-collection-service
+frameworkVersion: "3"
+
+plugins:
+  - serverless-dynamodb-local
+  - serverless-offline
+
+custom:
+  dynamodb:
+    stages:
+      - dev
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true # create tables on start
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: 20201221
+  region: ${file(../serverless-config.json):region}
+  apiGateway:
+    apiKeys:
+      - defaultKey
+  environment:
+    DYNAMODB_NFTS_TABLE: 'near-nfts'
+    DYNAMODB_NFT_COLLECTIONS_TABLE: 'near-nft-collections'
+    DYNAMODB_NFT_OFFERS_TABLE: 'near-nft-offers'
+    DYNAMODB_NFT_ACTIVITIES_TABLE: 'near-nft-activities'
+    SECRET_KEY: ${file(../serverless-config.json):SECRET_KEY}
+  httpApi:
+    id: !ImportValue NearGatewayHttpApiId
+  iam:
+    role:
+      statements:
+        - Effect: 'Allow'
+          Action:
+            - 'dynamodb:Query'
+            - 'dynamodb:Scan  '
+            - 'dynamodb:PutItem'
+            - 'dynamodb:UpdateItem'
+            - 'dynamodb:GetItem'
+            - 'dynamodb:BatchGetItem'
+            - 'dynamodb:BatchWriteItem'
+          Resource:
+            - 'arn:aws:dynamodb:*:*:*'
+            - 'arn:aws:dynamodb:*:*:*/*/index/*'
+
+functions:
+  retrieve-collections-by-owner:
+    handler: list.handler
+    events:
+      - httpApi:
+          path: /nfts/collections/list/{ownerId}
+          method: get
+  create-nft-collection:
+    handler: create.handler
+    events:
+      - httpApi:
+          path: /nfts/collections
+          method: post
+  update-nft-collection:
+    handler: update.handler
+    events:
+      - httpApi:
+          path: /nfts/collections/{nftCollectionId}
+          method: put
+  delete-nft-collection:
+    handler: delete.handler
+    events:
+      - httpApi:
+          path: /nfts/collections/{nftCollectionId}
+          method: delete
+  get-nft-collection:
+    handler: get.handler
+    events:
+      - httpApi:
+          path: /nfts/collections/{nftCollectionId}
+          method: get
+  list-all-collections:
+    handler: get-all-collection.handler
+    events:
+      - httpApi:
+          path: /nfts/collections
+          method: get
+  set-price:
+    handler: price-limit.handler
+    events:
+      - httpApi:
+          path: /nfts/set-price-limit/{nftId}
+          method: post
+  make-token-offer:
+    handler: make-token-offer.handler
+    events:
+      - httpApi:
+          path: /nfts/make-token-offer/{nftId}
+          method: post
+  make-nft-offer:
+    handler: make-nft-offer.handler
+    events:
+      - httpApi:
+          path: /nfts/make-nft-offer/{nftId}
+          method: post
+  list-offers-by-status:
+    handler: list-offers.handler
+    events:
+      - httpApi:
+          path: /nfts/offer/{status}/list/{nftId}
+          method: get
+  offer-accept-or-reject:
+    handler: handle-offer.handler
+    events:
+      - httpApi:
+          path: /nfts/handle/offer/{offerId}
+          method: patch
+  count-offer:
+    handler: counter-offer.handler
+    events:
+      - httpApi:
+          path: /nfts/count-offer/{nftId}
+          method: post
+  list-nft-activities:
+    handler: activities.handler
+    events:
+      - httpApi:
+          path: /nfts/{nftId}/activities
+          method: get
+  create-nft-activity:
+    handler: create-nft-activity.handler
+    events:
+      - httpApi:
+          path: /nfts/activities
+          method: post
+  publish-token-offer:
+    handler: publish-token-offer.handler
+    events:
+      - httpApi:
+          path: /nfts/publish/token/offer/{nftId}
+          method: post
+  publish-nft-offer:
+    handler: publish-nft-offer.handler
+    events:
+      - httpApi:
+          path: /nfts/publish/nft/offer/{nftId}
+          method: post
+
+resources:
+  Resources:
+    UsersTable:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
+      Properties:
+        TableName: near-users
+        AttributeDefinitions:
+          - AttributeName: userId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userId
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+    NftsTable:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
+      Properties:
+        TableName: near-nfts
+        AttributeDefinitions:
+          - AttributeName: nftId
+            AttributeType: S
+          - AttributeName: ownerWalletId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: nftId
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: ownerWalletId-Index
+            KeySchema:
+              - AttributeName: ownerWalletId
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+        BillingMode: PAY_PER_REQUEST
+    NftCollectionsTable:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
+      Properties:
+        TableName: near-nft-collections
+        AttributeDefinitions:
+          - AttributeName: collectionId
+            AttributeType: S
+          - AttributeName: ownerId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: collectionId
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: OwnerIdIndex
+            KeySchema:
+              - AttributeName: ownerId
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+        BillingMode: PAY_PER_REQUEST
+    NftOffersTable:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
+      Properties:
+        TableName: near-nft-offers
+        AttributeDefinitions:
+          - AttributeName: offerId
+            AttributeType: S
+          - AttributeName: nftId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: offerId
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: nftId-Index
+            KeySchema:
+              - AttributeName: nftId
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+        BillingMode: PAY_PER_REQUEST
+    NftActivitiesTable:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
+      Properties:
+        TableName: near-nft-activities
+        AttributeDefinitions:
+          - AttributeName: activityId
+            AttributeType: S
+          - AttributeName: nftId
+            AttributeType: S
+          - AttributeName: created
+            AttributeType: N
+        KeySchema:
+          - AttributeName: activityId
+            KeyType: HASH
+          - AttributeName: created
+            KeyType: RANGE
+        GlobalSecondaryIndexes:
+          - IndexName: nftId-Index
+            KeySchema:
+              - AttributeName: nftId
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+        BillingMode: PAY_PER_REQUEST
+    NftSharesTable:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
+      Properties:
+        TableName: near-nft-shares
+        AttributeDefinitions:
+          - AttributeName: shareId
+            AttributeType: S
+          - AttributeName: nftId
+            AttributeType: S
+          - AttributeName: ownerId
+            AttributeType: S
+          - AttributeName: recipientId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: shareId
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: nftId-Index
+            KeySchema:
+              - AttributeName: nftId
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: ownerId-Index
+            KeySchema:
+              - AttributeName: ownerId
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: recipientId-Index
+            KeySchema:
+              - AttributeName: recipientId
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+        BillingMode: PAY_PER_REQUEST

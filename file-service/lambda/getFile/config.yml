@@ -1,0 +1,36 @@
+getFile:
+  handler: lambda/getFile/index.handler
+  description: "Allows user to retrieve a file details using the fileId"
+  events:
+    - httpApi:
+        path: /wallets/{walletId}/files/{fileId}
+        method: get
+        authorizer:
+          type: request
+          id: !ImportValue NearGatewayAuthorizerId
+  environment:
+    # Avoid using Ref here as this may create a Circular dependency between resources https://go.aws/3pk3Nup
+    ## TODO: use ${self:custom.startup-service.filesBucket.name} when # TODO: uncomment this section when https://github.com/nearcomponents/gateway/pull/14 is merged
+    BUCKET_NAME_FILES: ${self:custom.file-service.s3.files.name}
+    TABLE_NAME_FILES: ${self:custom.file-service.dynamodb.files.name}
+    ## TODO: use ${ssm:/dynamodb/wallet-service/wallets/name} when exported by Terraform
+    TABLE_NAME_WALLETS: near-wallets
+  iamRoleStatementsInherit: true
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:GetItem
+      Resource:
+        ## TODO: use ${ssm:/dynamodb/wallet-service/wallets/arn} when exported by Terraform
+        - arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/near-wallets
+    - Effect: Allow
+      Action:
+        - dynamodb:GetItem
+      Resource:
+        - ${self:custom.file-service.dynamodb.files.arn}
+    - Effect: Allow
+      Action:
+        - s3:GetObject
+      Resource:
+        - Fn::Join: ["/", [!ImportValue FileServiceFilesBucketArn, "*"]]
+

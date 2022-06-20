@@ -1,0 +1,16 @@
+fetch-wallets:
+  handler: lambda/fetch-wallets/index.handler
+  description: "Fetch user wallets by userId"
+  events:
+    - httpApi:
+        path: /wallets
+        method: get
+  environment:
+    TABLE_NAME_WALLETS: near-wallets
+  iamRoleStatementsInherit: true
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:GetItem
+      Resource:
+        - arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/near-wallets

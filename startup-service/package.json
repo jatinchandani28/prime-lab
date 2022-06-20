@@ -1,0 +1,15 @@
+{
+  "name": "startup-service",
+  "version": "1.0.0",
+  "description": "startup-service",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1077.0",
+    "jsonwebtoken": "^8.5.1"
+  }
+}

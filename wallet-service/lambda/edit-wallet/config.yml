@@ -1,0 +1,17 @@
+edit-wallet:
+  handler: lambda/edit-wallet/index.handler
+  description: "Edits wallet attributes"
+  events:
+    - httpApi:
+        path: /wallets/{walletId}
+        method: patch
+  environment:
+    TABLE_NAME_WALLETS: near-wallets
+  iamRoleStatementsInherit: true
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:GetItem
+        - dynamodb:DeleteItem
+      Resource:
+        - arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/near-wallets

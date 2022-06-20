@@ -1,0 +1,35 @@
+Resources:
+  FileServiceFilesBucket:
+    DeletionPolicy: Retain
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: near-files-${self:provider.stage}
+      AccessControl: PublicRead
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      CorsConfiguration:
+        CorsRules:
+          - AllowedOrigins:
+              - "*"
+            AllowedMethods:
+              - POST
+              - GET
+              - PUT
+              - DELETE
+              - HEAD
+            AllowedHeaders:
+              - "*"
+
+Outputs:
+  FileServiceFilesBucketName:
+    Value: !Ref FileServiceFilesBucket
+    Export:
+      Name: FileServiceFilesBucketName
+
+  FileServiceFilesBucketArn:
+    Value: !GetAtt FileServiceFilesBucket.Arn
+    Export:
+      Name: FileServiceFilesBucketArn

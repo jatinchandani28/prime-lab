@@ -1,0 +1,47 @@
+{
+  "version": "2.0",
+  "routeKey": "POST /users/login",
+  "rawPath": "/users/login",
+  "rawQueryString": "",
+  "headers": {
+    "accept": "application/json, text/plain, */*",
+    "accept-encoding": "gzip, deflate, br",
+    "accept-language": "fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7",
+    "content-length": "33",
+    "content-type": "application/json",
+    "host": "api.dev.nearlogin.io",
+    "origin": "http://localhost:3000",
+    "referer": "http://localhost:3000/",
+    "sec-ch-ua": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"99\", \"Google Chrome\";v=\"99\"",
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": "\"macOS\"",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "cross-site",
+    "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36",
+    "x-amzn-trace-id": "Root=1-622ca066-33d24a3d7c71994b6929c24a",
+    "x-forwarded-for": "87.91.32.240",
+    "x-forwarded-port": "443",
+    "x-forwarded-proto": "https"
+  },
+  "requestContext": {
+    "accountId": "227200131463",
+    "apiId": "bty54yixsa",
+    "domainName": "api.dev.nearlogin.io",
+    "domainPrefix": "api",
+    "http": {
+      "method": "POST",
+      "path": "/users/login",
+      "protocol": "HTTP/1.1",
+      "sourceIp": "87.91.32.240",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36"
+    },
+    "requestId": "O34AHg7hoAMEM9g=",
+    "routeKey": "POST /users/login",
+    "stage": "$default",
+    "time": "12/Mar/2022:13:30:14 +0000",
+    "timeEpoch": 1647091814999
+  },
+  "body": "{\"walletID\":\"adnenekhalfa1.near\"}",
+  "isBase64Encoded": false
+}

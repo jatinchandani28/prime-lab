@@ -1,0 +1,6 @@
+create-user:
+  handler: lambda/create-user/index.handler
+  events:
+    - httpApi:
+        path: /users
+        method: post

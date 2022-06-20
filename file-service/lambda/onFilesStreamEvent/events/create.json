@@ -1,0 +1,65 @@
+{
+  "Records": [
+    {
+      "eventID": "c8a7ad2e51f7497cb2d52ebd1413240b",
+      "eventName": "INSERT",
+      "eventVersion": "1.1",
+      "eventSource": "aws:dynamodb",
+      "awsRegion": "us-east-1",
+      "dynamodb": {
+        "ApproximateCreationDateTime": 1646000683,
+        "Keys": {
+          "userId": {
+            "S": "V1StGXR8_Z65dHi6B-myT"
+          },
+          "fileId": {
+            "S": "66bdaf39-b8d4-4ff5-b84d-f2d6116a0bfe"
+          }
+        },
+        "NewImage": {
+          "fileDescription": {
+            "S": "test another file description"
+          },
+          "fileName": {
+            "S": "test2.png"
+          },
+          "storageProvider": {
+            "S": "provider_ABC"
+          },
+          "created": {
+            "S": "2022-02-27T22:24:42.991Z"
+          },
+          "filePath": {
+            "S": "/root/child"
+          },
+          "dataEncryptionKey": {
+            "M": {
+              "encrypted": {
+                "S": "062176df-cd6a-4401-b2d7-e5f5381c63bb"
+              },
+              "md5": {
+                "S": "2cXtCIsre8w6lObxydOjoA=="
+              }
+            }
+          },
+          "ownerId": {
+            "S": "V1StGXR8_Z65dHi6B-myT"
+          },
+          "updated": {
+            "S": "2022-02-27T22:24:42.991Z"
+          },
+          "userId": {
+            "S": "V1StGXR8_Z65dHi6B-myT"
+          },
+          "fileId": {
+            "S": "66bdaf39-b8d4-4ff5-b84d-f2d6116a0bfe"
+          }
+        },
+        "SequenceNumber": "400000000024467700592",
+        "SizeBytes": 429,
+        "StreamViewType": "NEW_AND_OLD_IMAGES"
+      },
+      "eventSourceARN": "arn:aws:dynamodb:us-east-1:227200131463:table/near-files/stream/2022-02-27T18:41:27.934"
+    }
+  ]
+}

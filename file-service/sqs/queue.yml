@@ -1,0 +1,11 @@
+Resources:
+  DLQonFileUploaded:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: ${self:service}-${self:provider.stage}-DLQ-onFileUploaded
+
+  DLQonFilesStreamEvent:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: ${self:service}-${self:provider.stage}-DLQ-onFilesStreamEvent
+

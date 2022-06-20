@@ -1,0 +1,29 @@
+revokeShare:
+  handler: lambda/revokeShare/index.handler
+  description: "Allows user to revoke a permission access."
+  events:
+    - httpApi:
+        path: /wallets/{walletId}/files/{fileId}/revoke
+        method: post
+        authorizer:
+          type: request
+          id: !ImportValue NearGatewayAuthorizerId
+  environment:
+    TABLE_NAME_FILES: ${self:custom.file-service.dynamodb.files.name}
+    ## TODO: use ${ssm:/dynamodb/wallet-service/wallets/name} when exported by Terraform
+    TABLE_NAME_WALLETS: near-wallets
+  iamRoleStatementsInherit: true
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DeleteItem
+        - dynamodb:GetItem
+      Resource:
+        - ${self:custom.file-service.dynamodb.files.arn}
+    - Effect: Allow
+      Action:
+        - dynamodb:GetItem
+      Resource:
+        ## TODO: use ${ssm:/dynamodb/wallet-service/wallets/arn} when exported by Terraform
+        - arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/near-wallets
+

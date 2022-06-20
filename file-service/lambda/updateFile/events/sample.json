@@ -1,0 +1,48 @@
+{
+  "version": "2.0",
+  "routeKey": "PUT /wallets/{walletId}/files/{fileId}",
+  "rawPath": "/wallets/wafgesh.near/files/270a5c81-561c-425f-a8fe-c91fd7ca54ca",
+  "rawQueryString": "",
+  "headers": {
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate, br",
+    "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJWMVN0R1hSOF9aNjVkSGk2Qi1teVQiLCJmaXJzdE5hbWUiOiJ0ZXN0IiwibGFzdE5hbWUiOiJ1c2VyIiwid2FsbGV0SWQiOiJ3YWZnZXNoLm5lYXIiLCJlbWFpbCI6Im1vY2stdGVzdEBwcmltZWxhYi5pbyIsInBob25lIjoiKzI1NTE4MTcxODEiLCJkb2IiOiIyMDAwLTEwLTEwIiwiaWF0IjoxNjQ2MDkzODQ0LCJleHAiOjIyNTA4OTM4NDR9.zpJFInSY8qfYciQzYm-0D-ja2f2QjssOxDkSKuOrmtY",
+    "cache-control": "no-cache",
+    "content-length": "96",
+    "content-type": "application/json",
+    "host": "bty54yixsa.execute-api.us-east-1.amazonaws.com",
+    "postman-token": "976a0f90-2040-4705-aa95-3466a5497952",
+    "user-agent": "PostmanRuntime/7.29.0",
+    "x-amzn-trace-id": "Root=1-621e99f0-5a96300e048acaad29960392",
+    "x-forwarded-for": "54.86.50.139",
+    "x-forwarded-port": "443",
+    "x-forwarded-proto": "https"
+  },
+  "requestContext": {
+    "accountId": "227200131463",
+    "apiId": "bty54yixsa",
+    "authorizer": {
+      "lambda": null
+    },
+    "domainName": "bty54yixsa.execute-api.us-east-1.amazonaws.com",
+    "domainPrefix": "bty54yixsa",
+    "http": {
+      "method": "PUT",
+      "path": "/wallets/wafgesh.near/files/270a5c81-561c-425f-a8fe-c91fd7ca54ca",
+      "protocol": "HTTP/1.1",
+      "sourceIp": "54.86.50.139",
+      "userAgent": "PostmanRuntime/7.29.0"
+    },
+    "requestId": "OUz9kiNXIAMESxg=",
+    "routeKey": "PUT /wallets/{walletId}/files/{fileId}",
+    "stage": "$default",
+    "time": "01/Mar/2022:22:10:56 +0000",
+    "timeEpoch": 1646172656203
+  },
+  "pathParameters": {
+    "fileId": "270a5c81-561c-425f-a8fe-c91fd7ca54ca",
+    "walletId": "wafgesh.near"
+  },
+  "body": "{\n    \"name\": \"new_file_name.png\",\n    \"description\": \"This is a new description description \"\n}",
+  "isBase64Encoded": false
+}

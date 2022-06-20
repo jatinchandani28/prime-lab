@@ -1,0 +1,15 @@
+Resources:
+  sendNftGiftQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: ${self:service}-${self:provider.stage}-sendNftGiftQueue
+      VisibilityTimeout: 30
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt DLQSendNftGiftQueue.Arn
+        maxReceiveCount: 10
+
+  DLQSendNftGiftQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: ${self:service}-${self:provider.stage}-sendNftGiftQueue-DLQ
+

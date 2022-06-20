@@ -1,0 +1,45 @@
+{
+  "version": "2.0",
+  "routeKey": "POST /files",
+  "rawPath": "/files",
+  "rawQueryString": "",
+  "cookies": [],
+  "headers": {
+    "cache-control": "no-cache",
+    "Postman-Token": "07fcf86c-af91-45ac-a8de-ca8c1846d937",
+    "Content-Type": "text/plain",
+    "User-Agent": "PostmanRuntime/7.1.1",
+    "Accept": "*/*",
+    "Host": "localhost:3000",
+    "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJBT19qQXhqekpWaXBxVS1keXppbXAiLCJmaXJzdE5hbWUiOiJ0ZXN0IiwibGFzdE5hbWUiOiJ1c2VyIiwid2FsbGV0SWQiOiJ3YWZnZXNoLm5lYXIiLCJlbWFpbCI6Im1vY2stdGVzdEBwcmltZWxhYi5pbyIsInBob25lIjoiKzI1NTE4MTcxODEiLCJkb2IiOiIyMDAwLTEwLTEwIiwiaWF0IjoxNjQ3MjEzMTA2LCJleHAiOjIyNTIwMTMxMDZ9.jUVd-9K6ZpXgpAr0rdYHLjqHyEILsnTqNybgYd7KaTA",
+    "accept-encoding": "gzip, deflate",
+    "content-length": "130",
+    "Connection": "keep-alive"
+  },
+  "queryStringParameters": null,
+  "requestContext": {
+    "accountId": "offlineContext_accountId",
+    "apiId": "offlineContext_apiId",
+    "authorizer": {
+      "jwt": {}
+    },
+    "domainName": "offlineContext_domainName",
+    "domainPrefix": "offlineContext_domainPrefix",
+    "http": {
+      "method": "POST",
+      "path": "/files",
+      "protocol": "HTTP/1.1",
+      "sourceIp": "127.0.0.1",
+      "userAgent": "PostmanRuntime/7.1.1"
+    },
+    "requestId": "offlineContext_resourceId",
+    "routeKey": "POST /files",
+    "stage": "$default",
+    "time": "26/Feb/2022:02:00:40 +0100",
+    "timeEpoch": 1645837240086
+  },
+  "body": "{\n   \"fileName\":\"secretfile\",\n   \"filePath\":\"/Users/nutsoft/Downloads/nft-downloads.jpeg\",\n   \"fileDescription\":\"my secret little file description\",\n   \"storageProvider\":\"provider_ABC\",\n   \"walletId\":\"wafgesh.near\"\n, \"parts\":5\n}",
+  "pathParameters": { "walletId": "wafgesh.near"},
+  "isBase64Encoded": false,
+  "stageVariables": null
+}

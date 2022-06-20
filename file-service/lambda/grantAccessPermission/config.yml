@@ -1,0 +1,20 @@
+grantAccessPermission:
+  handler: lambda/grantAccessPermission/index.handler
+  description: "Grant Permission to User"
+  timeout: 5
+  events:
+    - httpApi:
+        path: /files/grantPermission
+        method: post
+        authorizer:
+          type: request
+          id: !ImportValue NearGatewayAuthorizerId
+#  environment:
+#    Foo: Bar
+  iamRoleStatementsInherit: true
+#  iamRoleStatements:
+#    - Effect: Allow
+#      Action:
+#        - s3:PutObject
+#      Resource:
+#        - Fn::GetAtt: [filesBucket, Arn]

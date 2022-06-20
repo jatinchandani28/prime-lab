@@ -1,0 +1,111 @@
+service: contacts-srv
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: ${file(../serverless-config.json):region}
+  stage: ${opt:stage, 'dev'}
+  timeout: 5
+  apiGateway:
+    apiKeys:
+      - defaultKey
+  httpApi:
+    id: !ImportValue NearGatewayHttpApiId
+  environment:
+    SECRET_KEY: 'MyAwesomeKey'
+    IS_OFFLINE: false
+    IMPORT_CONTACTS: 'near-contacts'
+  #TODO: Need to remove extra permissions
+  iam:
+    role:
+      statements:
+        - Effect: 'Allow'
+          Action:
+            - dynamodb:BatchGet*
+            - dynamodb:DescribeStream
+            - dynamodb:DescribeTable
+            - dynamodb:Get*
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:BatchWrite*
+            - dynamodb:CreateTable
+            - dynamodb:Delete*
+            - dynamodb:Update*
+            - dynamodb:PutItem
+            - ssm:DescribeParameters
+            - ssm:GetParameter
+            - ssm:GetParameters
+            - ses:SendEmail
+            - ses:SendRawEmail
+          Resource:
+            - 'arn:aws:dynamodb:*:*:*'
+            - 'arn:aws:dynamodb:*:*:*/*/index/*'
+            - 'arn:aws:ssm:*'
+            - 'arn:aws:ses:*'
+
+functions:
+  createContact:
+    handler: create.main
+    events:
+      - httpApi:
+          path: /contacts/{userId}
+          method: post
+  detailContact:
+    handler: details.main
+    events:
+      - httpApi:
+          path: /contacts/{contactId}
+          method: get
+  updateContact:
+    handler: update.main
+    events:
+      - httpApi:
+          path: /contacts/{contactId}
+          method: put
+  deleteContact:
+    handler: delete.main
+    events:
+      - httpApi:
+          path: /contacts/{contactId}
+          method: delete
+  listContact:
+    handler: list.main
+    events:
+      - httpApi:
+          path: /contacts/{userId}/list
+          method: get
+  blockContact:
+    handler: block.main
+    events:
+      - httpApi:
+          path: /contacts/{contactId}/block
+          method: patch
+  importContact:
+    handler: import.main
+    events:
+      - httpApi:
+          path: /contacts/{userId}/import
+          method: post
+  photoContact:
+    handler: photo.main
+    events:
+      - httpApi:
+          path: /contacts/{contactId}/photo
+          method: get
+  favoriteContact:
+    handler: favorite.main
+    events:
+      - httpApi:
+          path: /contacts/{userId}/{contactId}/favorite
+          method: put
+  inviteContact:
+    handler: invite.main
+    events:
+      - httpApi:
+          path: /contacts/{contactId}/invite
+          method: post
+plugins:
+  - serverless-offline
+#  - serverless-dynamodb-local

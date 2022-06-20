@@ -1,0 +1,9 @@
+update-user:
+  handler: lambda/update-user/index.handler
+  description: "Update user by userId"
+  events:
+    - httpApi:
+        path: /users/{userId}
+        method: put
+  environment:
+    TABLE_NAME_USERS: near-users

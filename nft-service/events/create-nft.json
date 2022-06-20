@@ -1,0 +1,41 @@
+{
+  "version":"2.0",
+  "routeKey":"POST /nfts",
+  "rawPath":"/nfts",
+  "rawQueryString":"",
+  "headers":{
+    "accept":"*/*",
+    "accept-encoding":"gzip, deflate, br",
+    "authorization":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3VudHJ5Q29kZSI6IiszMyIsImxhc3ROYW1lIjoiS2hhbGZhIiwidXNlcklkIjoiWjZzOU5oUHZBVmI3V2RJaTl5bktpIiwic3RhdHVzIjoiYWN0aXZlIiwiY3JlYXRlZCI6MTY0NjMzNTYxMTkwOCwiaXNQaG9uZVZlcmlmaWVkIjpmYWxzZSwicGhvbmUiOiIwNjU4MTgyNTI2IiwiZmlyc3ROYW1lIjoiQWRuZW5lIiwiaXNFbWFpbFZlcmlmaWVkIjpmYWxzZSwid2FsbGV0TmFtZSI6IjA2NTgxODI1MjYubmVhciIsImlhdCI6MTY0Njg3MDg3MCwiZXhwIjoxNjQ2OTU3MjcwfQ.WejyyH9K0v5vXtxO1vArdeQ7Y7KTNBm_jcDkAJiHnR0",
+    "cache-control":"no-cache",
+    "content-length":"339",
+    "content-type":"application/json",
+    "host":"bty54yixsa.execute-api.us-east-1.amazonaws.com",
+    "postman-token":"66b6b86f-2898-4b0a-8382-47ae2ff68516",
+    "user-agent":"PostmanRuntime/7.29.0",
+    "x-amzn-trace-id":"Root=1-6229a58d-01650b750fc271ae21f0aac5",
+    "x-forwarded-for":"54.86.50.139",
+    "x-forwarded-port":"443",
+    "x-forwarded-proto":"https"
+  },
+  "requestContext":{
+    "accountId":"227200131463",
+    "apiId":"bty54yixsa",
+    "domainName":"bty54yixsa.execute-api.us-east-1.amazonaws.com",
+    "domainPrefix":"bty54yixsa",
+    "http":{
+      "method":"POST",
+      "path":"/nfts",
+      "protocol":"HTTP/1.1",
+      "sourceIp":"54.86.50.139",
+      "userAgent":"PostmanRuntime/7.29.0"
+    },
+    "requestId":"OwbOLicTIAMESXw=",
+    "routeKey":"POST /nfts",
+    "stage":"$default",
+    "time":"10/Mar/2022:07:15:25 +0000",
+    "timeEpoch":1646896525765
+  },
+  "body":"{\n    \"title\": \"lonely stars\",\n    \"description\": \"this is my favorite art!\",\n    \"collectionId\": \"ggLThIdUL-SrgQaEVuIxX\",\n    \"categoryId\": \"XNwyaIOPKkfc1iFngXorm\",\n    \"filePath\": \"https://cdn.eathappyproject.com/wp-content/uploads/2021/02/The-Most-Beautiful-Flowers-in-the-World-With-Name-and-Picture.jpg\",\n    \"tags\": [\"rare\", \"fun\"]\n}",
+  "isBase64Encoded":false
+}

@@ -1,0 +1,7 @@
+verify-jwt:
+  handler: lambda/verify-jwt/index.handler
+  description: "Validate JWT tokens"
+  events:
+    - httpApi:
+        path: /users/verify-jwt
+        method: post

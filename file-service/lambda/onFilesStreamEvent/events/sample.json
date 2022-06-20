@@ -1,0 +1,75 @@
+{
+"Records": [
+{
+"eventID": "b755223a4cfc0bb837a318ec365ee134",
+"eventName": "REMOVE",
+"eventVersion": "1.1",
+"eventSource": "aws:dynamodb",
+"awsRegion": "us-east-1",
+"dynamodb": {
+"ApproximateCreationDateTime": 1646270534,
+"Keys": {
+"walletId": {
+"S": "mayurpadshalaprimelab1.near"
+},
+"fileId": {
+"S": "073ce73b-b58a-43ab-950b-1efcdae58d1c"
+}
+},
+"OldImage": {
+"path": {
+"S": ""
+},
+"walletId": {
+"S": "mayurpadshalaprimelab1.near"
+},
+"storageProvider": {
+"S": "S3"
+},
+"created": {
+"S": "2022-03-03T00:55:07.196Z"
+},
+"name": {
+"S": "1627912719879.png"
+},
+"dataEncryptionKey": {
+"M": {
+"encrypted": {
+"S": "c2443acb-490b-49ac-9cc2-462eef5b0874"
+},
+"md5": {
+"S": "KkRuGxhcIHEEC9eDglI1dA=="
+}
+}
+},
+"description": {
+"S": "{\"name\":\"1627912719879.png\",\"type\":\"image/png\",\"size\":892403}"
+},
+"ownerId": {
+"S": "mayurpadshalaprimelab1.near"
+},
+"ttl": {
+"N": "1646269807"
+},
+"updated": {
+"S": "2022-03-03T00:55:07.196Z"
+},
+"userId": {
+"S": "apPLEhxXXYXqHkdwggdS6"
+},
+"fileId": {
+"S": "073ce73b-b58a-43ab-950b-1efcdae58d1c"
+}
+},
+"SequenceNumber": "8667100000000030935898891",
+"SizeBytes": 494,
+"StreamViewType": "NEW_AND_OLD_IMAGES"
+},
+"userIdentity": {
+"principalId": "dynamodb.amazonaws.com",
+"type": "Service"
+},
+"eventSourceARN": "arn:aws:dynamodb:us-east-1:227200131463:table/near-files/stream/2022-03-01T05:07:11.480"
+}
+]
+}

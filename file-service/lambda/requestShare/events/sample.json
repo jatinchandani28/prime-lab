@@ -1,0 +1,48 @@
+{
+  "version": "2.0",
+  "routeKey": "POST /wallets/{walletId}/files/{fileId}/share",
+  "rawPath": "/wallets/wafgesh.near/files/e27fbbec-cb20-4d03-a0b4-b662a2821d26/share",
+  "rawQueryString": "",
+  "headers": {
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate, br",
+    "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJWMVN0R1hSOF9aNjVkSGk2Qi1teVQiLCJmaXJzdE5hbWUiOiJ0ZXN0IiwibGFzdE5hbWUiOiJ1c2VyIiwid2FsbGV0SWQiOiJ3YWZnZXNoLm5lYXIiLCJlbWFpbCI6Im1vY2stdGVzdEBwcmltZWxhYi5pbyIsInBob25lIjoiKzI1NTE4MTcxODEiLCJkb2IiOiIyMDAwLTEwLTEwIiwiaWF0IjoxNjQ2MDkzODQ0LCJleHAiOjIyNTA4OTM4NDR9.zpJFInSY8qfYciQzYm-0D-ja2f2QjssOxDkSKuOrmtY",
+    "cache-control": "no-cache",
+    "content-length": "45",
+    "content-type": "application/json",
+    "host": "bty54yixsa.execute-api.us-east-1.amazonaws.com",
+    "postman-token": "4ad7ade6-637a-4cad-9673-38583db94dd9",
+    "user-agent": "PostmanRuntime/7.29.0",
+    "x-amzn-trace-id": "Root=1-621ebe84-5dc975745377d4dc2be62aaa",
+    "x-forwarded-for": "54.86.50.139",
+    "x-forwarded-port": "443",
+    "x-forwarded-proto": "https"
+  },
+  "requestContext": {
+    "accountId": "227200131463",
+    "apiId": "bty54yixsa",
+    "authorizer": {
+      "lambda": null
+    },
+    "domainName": "bty54yixsa.execute-api.us-east-1.amazonaws.com",
+    "domainPrefix": "bty54yixsa",
+    "http": {
+      "method": "POST",
+      "path": "/wallets/wafgesh.near/files/e27fbbec-cb20-4d03-a0b4-b662a2821d26/share",
+      "protocol": "HTTP/1.1",
+      "sourceIp": "54.86.50.139",
+      "userAgent": "PostmanRuntime/7.29.0"
+    },
+    "requestId": "OVK0yiYioAMEJzA=",
+    "routeKey": "POST /wallets/{walletId}/files/{fileId}/share",
+    "stage": "$default",
+    "time": "02/Mar/2022:00:47:00 +0000",
+    "timeEpoch": 1646182020874
+  },
+  "pathParameters": {
+    "fileId": "e27fbbec-cb20-4d03-a0b4-b662a2821d26",
+    "walletId": "wafgesh.near"
+  },
+  "body": "{\n    \"receiverId\": \"4jMxtWsTYB1h31a_UJpvU\"\n}",
+  "isBase64Encoded": false
+}

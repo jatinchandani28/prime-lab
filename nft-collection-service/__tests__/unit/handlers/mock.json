@@ -1,0 +1,71 @@
+{
+  "ownerId": "S2kR0sVzo7YIgIgshE-jQ",
+  "bad_ownerId": "@@",
+  "collectionId": "QtMJnIUztkbFqa70D0eK7",
+  "collectionName": "Awesome",
+  "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cGRhdGVkIjoiMjAyMi0wMy0xNFQxMTozMjoyMC45NDJaIiwiY291bnRyeUNvZGUiOiIrMSIsImxhc3ROYW1lIjoiZGVtbyIsInVzZXJJZCI6Im9CaXRCTTdUcEFMUmdnYVNFRlZnWSIsInN0YXR1cyI6ImFjdGl2ZSIsImNyZWF0ZWQiOjE2NDY5OTIxNDM4ODIsImlzUGhvbmVWZXJpZmllZCI6ZmFsc2UsImVtYWlsIjoiYXNpbS5hbnNhcmlAcHJpbWVsYWIuaW8iLCJmaXJzdE5hbWUiOiJBc2ltIGRlbW8iLCJpc0VtYWlsVmVyaWZpZWQiOmZhbHNlLCJ3YWxsZXROYW1lIjoiYXNpbWFuc2FyaS5uZWFyIiwiaWF0IjoxNjQ3NDIxNjI5LCJleHAiOjE2NDc1MDgwMjl9.Xz5haHw4VK91UKMP92jeh1704AdohChk70ss7iNqZek",
+  "user": {
+    "countryCode": "+1",
+    "lastName": "Veranyan",
+    "userId": "18kT0iyaQzC5K4Bduye8s",
+    "status": "active",
+    "created": 1646236356985,
+    "isPhoneVerified": true,
+    "phone": "123456789",
+    "firstName": "Davit",
+    "isEmailVerified": false,
+    "walletName": "davit.near"
+  },
+  "nftCollections": [
+    {
+      "active": true,
+      "updated": 1646297186666,
+      "created": 1646297186666,
+      "collectionName": "New NFT",
+      "collectionId": "z1OrfyKY-4u0sCSFThYyX",
+      "ownerId": "S2kR0sVzo7YIgIgshE-jQ"
+    },
+    {
+      "active": true,
+      "updated": 1646297040886,
+      "created": 1646297040886,
+      "collectionName": "My NFT",
+      "collectionId": "9a_wLobPxNDKCPLmys7ip",
+      "ownerId": "S2kR0sVzo7YIgIgshE-jQ"
+    },
+    {
+      "active": true,
+      "updated": 1646297040886,
+      "created": 1646297040886,
+      "collectionName": "JD NFT",
+      "collectionId": "9a_wLobPxNDKCPLmys7ip",
+      "ownerId": "S2kR0sVzo7YIgIgshE-jD"
+    }
+  ],
+  "offers": [
+    {
+      "offerId": "WEGThgjuiG6HTF121",
+      "nftId": "f353q50jg942",
+      "userId": "sdtewer23234",
+      "offerType": "TOKEN",
+      "offerPrice": 5,
+      "action": "initial",
+      "status": "pending",
+      "expire": 1645024203868,
+      "created": 1645024203868,
+      "updated": 1645024203868
+    },
+    {
+      "offerId": "WEGThgjuiG6HTF121",
+      "nftId": "f353q50jg942",
+      "userId": "sdtewer23234",
+      "offerType": "TOKEN",
+      "offerPrice": 5,
+      "action": "initial",
+      "status": "pending",
+      "expire": 1645024203868,
+      "created": 1645024203868,
+      "updated": 1645024203868
+    }
+  ]
+}

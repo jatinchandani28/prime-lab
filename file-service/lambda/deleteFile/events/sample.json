@@ -1,0 +1,42 @@
+{
+  "version": "2.0",
+  "routeKey": "DELETE /files/{fileId}",
+  "rawPath": "/files/SzhwDk1Xd1zEBPy7k9-MS",
+  "rawQueryString": "",
+  "headers": {
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJWMVN0R1hSOF9aNjVkSGk2Qi1teVQiLCJmaXJzdE5hbWUiOiJ0ZXN0IiwibGFzdE5hbWUiOiJ1c2VyIiwid2FsbGV0SWQiOiJ3YWZnZXNoLm5lYXIiLCJlbWFpbCI6Im1vY2stdGVzdEBwcmltZWxhYi5pbyIsInBob25lIjoiKzI1NTE4MTcxODEiLCJkb2IiOiIyMDAwLTEwLTEwIiwiaWF0IjoxNjQ1ODU2MTk4LCJleHAiOjIyNTA2NTYxOTh9.YF9PXwRBA7BSUNMs1bucg4JXZBI1e5b8KwmZi11SK3E",
+    "cache-control": "no-cache",
+    "content-length": "0",
+    "host": "c5do61zp8i.execute-api.us-east-1.amazonaws.com",
+    "postman-token": "5097c9be-438f-4b94-8a7b-5590ffae26f3",
+    "user-agent": "PostmanRuntime/7.1.1",
+    "x-amzn-trace-id": "Root=1-621b169e-37e2ae0270f470eb35890900",
+    "x-forwarded-for": "87.91.32.240",
+    "x-forwarded-port": "443",
+    "x-forwarded-proto": "https"
+  },
+  "requestContext": {
+    "accountId": "227200131463",
+    "apiId": "c5do61zp8i",
+    "domainName": "c5do61zp8i.execute-api.us-east-1.amazonaws.com",
+    "domainPrefix": "c5do61zp8i",
+    "http": {
+      "method": "GET",
+      "path": "/files/SzhwDk1Xd1zEBPy7k9-MS",
+      "protocol": "HTTP/1.1",
+      "sourceIp": "87.91.32.240",
+      "userAgent": "PostmanRuntime/7.1.1"
+    },
+    "requestId": "OMB4uiAhoAMEVUw=",
+    "routeKey": "GET /files/{fileId}",
+    "stage": "$default",
+    "time": "27/Feb/2022:06:13:50 +0000",
+    "timeEpoch": 1645942430035
+  },
+  "pathParameters": {
+    "fileId": "SzhwDk1Xd1zEBPy7k9-MS"
+  },
+  "isBase64Encoded": false
+}

@@ -1,0 +1,119 @@
+{
+  "Records": [
+    {
+      "eventID": "f19222ddbed9410dcaa63a7098294610",
+      "eventName": "MODIFY",
+      "eventVersion": "1.1",
+      "eventSource": "aws:dynamodb",
+      "awsRegion": "us-east-1",
+      "dynamodb": {
+        "ApproximateCreationDateTime": 1646263036,
+        "Keys": {
+          "walletId": {
+            "S": "wafgesh.near"
+          },
+          "fileId": {
+            "S": "db29a4ee-050e-4460-90a5-92b9e0cd0386"
+          }
+        },
+        "NewImage": {
+          "walletId": {
+            "S": "wafgesh.near"
+          },
+          "storageProvider": {
+            "S": "Google Drive"
+          },
+          "created": {
+            "S": "2022-03-02T23:14:48.047Z"
+          },
+          "description": {
+            "S": "description "
+          },
+          "ownerId": {
+            "S": "wafgesh.near"
+          },
+          "userId": {
+            "S": "V1StGXR8_Z65dHi6B-myT"
+          },
+          "path": {
+            "S": "/myDrive/myfile.png"
+          },
+          "size": {
+            "N": "0"
+          },
+          "name": {
+            "S": "myfile.png"
+          },
+          "dataEncryptionKey": {
+            "M": {
+              "encrypted": {
+                "S": "e5ad32fe-5ddf-40ea-a800-1f8bec5cd3bb"
+              },
+              "md5": {
+                "S": "3IxVOlgzMKnBh5hIKgsqHg=="
+              }
+            }
+          },
+          "updated": {
+            "S": "2022-03-02T23:17:16.475Z"
+          },
+          "hash": {
+            "S": "f7bbee34dc244b1e93dfc594577c55df8a8b22f35d8c99cf1e7959428d6fe4349024b14bcc1785d06cb7c13ee5c2bf05"
+          },
+          "fileId": {
+            "S": "db29a4ee-050e-4460-90a5-92b9e0cd0386"
+          }
+        },
+        "OldImage": {
+          "path": {
+            "S": "/myDrive/myfile.png"
+          },
+          "walletId": {
+            "S": "wafgesh.near"
+          },
+          "storageProvider": {
+            "S": "Google Drive"
+          },
+          "created": {
+            "S": "2022-03-02T23:14:48.047Z"
+          },
+          "name": {
+            "S": "myfile.png"
+          },
+          "dataEncryptionKey": {
+            "M": {
+              "encrypted": {
+                "S": "e5ad32fe-5ddf-40ea-a800-1f8bec5cd3bb"
+              },
+              "md5": {
+                "S": "3IxVOlgzMKnBh5hIKgsqHg=="
+              }
+            }
+          },
+          "description": {
+            "S": "description "
+          },
+          "ownerId": {
+            "S": "wafgesh.near"
+          },
+          "ttl": {
+            "N": "1646263788"
+          },
+          "updated": {
+            "S": "2022-03-02T23:14:48.047Z"
+          },
+          "userId": {
+            "S": "V1StGXR8_Z65dHi6B-myT"
+          },
+          "fileId": {
+            "S": "db29a4ee-050e-4460-90a5-92b9e0cd0386"
+          }
+        },
+        "SequenceNumber": "8077700000000049801345299",
+        "SizeBytes": 878,
+        "StreamViewType": "NEW_AND_OLD_IMAGES"
+      },
+      "eventSourceARN": "arn:aws:dynamodb:us-east-1:227200131463:table/near-files/stream/2022-03-01T05:07:11.480"
+    }
+  ]
+}

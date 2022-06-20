@@ -1,0 +1,45 @@
+{
+  "version": "2.0",
+  "routeKey": "GET /wallets/{walletId}/files",
+  "rawPath": "/wallets/wafgesh.near/files",
+  "rawQueryString": "",
+  "headers": {
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate, br",
+    "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJWMVN0R1hSOF9aNjVkSGk2Qi1teVQiLCJmaXJzdE5hbWUiOiJ0ZXN0IiwibGFzdE5hbWUiOiJ1c2VyIiwid2FsbGV0SWQiOiJ3YWZnZXNoLm5lYXIiLCJlbWFpbCI6Im1vY2stdGVzdEBwcmltZWxhYi5pbyIsInBob25lIjoiKzI1NTE4MTcxODEiLCJkb2IiOiIyMDAwLTEwLTEwIiwiaWF0IjoxNjQ2MDkzODQ0LCJleHAiOjIyNTA4OTM4NDR9.zpJFInSY8qfYciQzYm-0D-ja2f2QjssOxDkSKuOrmtY",
+    "cache-control": "no-cache",
+    "content-length": "0",
+    "host": "bty54yixsa.execute-api.us-east-1.amazonaws.com",
+    "postman-token": "edd1bcfd-fde5-4c3f-99e3-ba62a2749f15",
+    "user-agent": "PostmanRuntime/7.29.0",
+    "x-amzn-trace-id": "Root=1-621e7575-2ff5bf7f7ea96dc22a3c4fb3",
+    "x-forwarded-for": "54.86.50.139",
+    "x-forwarded-port": "443",
+    "x-forwarded-proto": "https"
+  },
+  "requestContext": {
+    "accountId": "227200131463",
+    "apiId": "bty54yixsa",
+    "authorizer": {
+      "lambda": null
+    },
+    "domainName": "bty54yixsa.execute-api.us-east-1.amazonaws.com",
+    "domainPrefix": "bty54yixsa",
+    "http": {
+      "method": "GET",
+      "path": "/wallets/wafgesh.near/files",
+      "protocol": "HTTP/1.1",
+      "sourceIp": "54.86.50.139",
+      "userAgent": "PostmanRuntime/7.29.0"
+    },
+    "requestId": "OUdKbiHhoAMES5w=",
+    "routeKey": "GET /wallets/{walletId}/files",
+    "stage": "$default",
+    "time": "01/Mar/2022:19:35:17 +0000",
+    "timeEpoch": 1646163317705
+  },
+  "pathParameters": {
+    "walletId": "wafgesh.near"
+  },
+  "isBase64Encoded": false
+}

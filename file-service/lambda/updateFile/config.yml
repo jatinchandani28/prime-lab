@@ -1,0 +1,32 @@
+updateFile:
+  handler: lambda/updateFile/index.handler
+  description: "Allows updating a file"
+  events:
+    - httpApi:
+        path: /wallets/{walletId}/files/{fileId}
+        method: put
+        authorizer:
+          type: request
+          id: !ImportValue NearGatewayAuthorizerId
+  environment:
+    BUCKET_NAME_FILES: ${self:custom.file-service.s3.files.name}
+    TABLE_NAME_FILES: ${self:custom.file-service.dynamodb.files.name}
+    TABLE_NAME_WALLETS: near-wallets
+  iamRoleStatementsInherit: true
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:UpdateItem
+      Resource:
+        - ${self:custom.file-service.dynamodb.files.arn}
+    - Effect: Allow
+      Action:
+        - dynamodb:GetItem
+      Resource:
+        ## TODO: use ${ssm:/dynamodb/wallet-service/wallets/arn} when exported by Terraform
+        - arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/near-wallets
+    - Effect: Allow
+      Action:
+        - s3:PutObject
+      Resource:
+        - ${self:custom.file-service.s3.files.arn}

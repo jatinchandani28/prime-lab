@@ -1,0 +1,14 @@
+{
+  "name": "on-files-stream-event",
+  "version": "1.0.0",
+  "description": "Function triggered from near-files stream upon item creation/update/delete",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "http-status-codes": "^2.2.0"
+  }
+}

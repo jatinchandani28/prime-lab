@@ -1,0 +1,44 @@
+{
+  "version":"2.0",
+  "routeKey":"POST /nfts/{nftId}/gift",
+  "rawPath":"/nfts/qGBAUMzjFQu7TNAy6hxEb/gift",
+  "rawQueryString":"",
+  "headers":{
+    "accept":"*/*",
+    "authorization":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3VudHJ5Q29kZSI6IiszMyIsImxhc3ROYW1lIjoiS2hhbGZhIiwidXNlcklkIjoiWjZzOU5oUHZBVmI3V2RJaTl5bktpIiwic3RhdHVzIjoiYWN0aXZlIiwiY3JlYXRlZCI6MTY0NjMzNTYxMTkwOCwiaXNQaG9uZVZlcmlmaWVkIjpmYWxzZSwicGhvbmUiOiIwNjU4MTgyNTI2IiwiZmlyc3ROYW1lIjoiQWRuZW5lIiwiaXNFbWFpbFZlcmlmaWVkIjpmYWxzZSwid2FsbGV0TmFtZSI6IjA2NTgxODI1MjYubmVhciIsImlhdCI6MTY0Njg3MDg3MCwiZXhwIjoxNjQ2OTU3MjcwfQ.WejyyH9K0v5vXtxO1vArdeQ7Y7KTNBm_jcDkAJiHnR0",
+    "accept-encoding":"gzip, deflate, br",
+    "cache-control":"no-cache",
+    "content-length":"47",
+    "content-type":"application/json",
+    "host":"bty54yixsa.execute-api.us-east-1.amazonaws.com",
+    "postman-token":"c808311c-6b35-4276-b035-9d3ce760c8b6",
+    "user-agent":"PostmanRuntime/7.29.0",
+    "x-amzn-trace-id":"Root=1-6229d532-650e53531020219f5d1591dc",
+    "x-forwarded-for":"54.86.50.139",
+    "x-forwarded-port":"443",
+    "x-forwarded-proto":"https"
+  },
+  "requestContext":{
+    "accountId":"227200131463",
+    "apiId":"bty54yixsa",
+    "domainName":"bty54yixsa.execute-api.us-east-1.amazonaws.com",
+    "domainPrefix":"bty54yixsa",
+    "http":{
+      "method":"POST",
+      "path":"/nfts/qGBAUMzjFQu7TNAy6hxEb/gift",
+      "protocol":"HTTP/1.1",
+      "sourceIp":"54.86.50.139",
+      "userAgent":"PostmanRuntime/7.29.0"
+    },
+    "requestId":"Ow4_9jrToAMEJ1Q=",
+    "routeKey":"POST /nfts/{nftId}/gift",
+    "stage":"$default",
+    "time":"10/Mar/2022:10:38:42 +0000",
+    "timeEpoch":1646908722742
+  },
+  "pathParameters":{
+    "nftId":"qGBAUMzjFQu7TNAy6hxEb"
+  },
+  "body":"{\n    \"contactIds\": [\"qxMVFSJVsWUno8M48zYAA\"]\n}",
+  "isBase64Encoded":false
+}

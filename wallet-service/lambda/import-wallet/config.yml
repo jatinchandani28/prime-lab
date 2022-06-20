@@ -1,0 +1,17 @@
+import-wallet:
+  handler: lambda/import-wallet/index.handler
+  description: "Import wallet"
+  events:
+    - httpApi:
+        path: /wallets/import
+        method: POST
+  environment:
+    TABLE_NAME_WALLETS: near-wallets
+  iamRoleStatementsInherit: true
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:GetItem
+        - dynamodb:UpdateItem
+      Resource:
+        - arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/near-wallets

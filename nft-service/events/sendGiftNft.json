@@ -1,0 +1,21 @@
+{
+  "Records": [
+    {
+      "messageId": "e9706c8c-9937-4aa3-8ed7-64d77d1c5a8e",
+      "receiptHandle": "AQEB80o87RdvDQ/8r4qY0cj2NdPNP/ukGl0YB2IWVIkXfN2AtkmtT10SJEwXfwD5QpVn2LT81ibWLnYDnazOCcqaMpkYlELHpgNsQO+6ZKmdPR9gQ8YzW45wrxI0IN5JqTW7etsRwcSwMiu5alOsVrybXhhoMd6tvIVR96U112X2xOUxVB50IBefVHe2vKPDbjl0fB36G6KI6ymCT75cbgTgQFBRGaSewSsGZs8Lcl9nv3RLuvSp18jevktD75tXDF5VUcf+G5wNyaClLwqiHLxkciadWIdDL3eGi9KKJA+Fm1qlV3OOzrc2wtPasNh1ZiCyfeznmjY5bQD8xMJ/QFDuy+YdBArcycArr5i2iQ7KHFI61Lqk6XMTZWw9UzpLIquK3qp0nBdxO3oHpCJif0ncq03ceAR14EKZeW3zc0BltF4=",
+      "body": "{\"receiver\":{\"walletId\":\"1558524967.near\",\"user\":{\"countryCode\":\"+20\",\"lastName\":\"Mohamed\",\"userId\":\"7ixDh3KLIqqr9_9qmurrH\",\"status\":\"active\",\"created\":1646928171829,\"isPhoneVerified\":false,\"phone\":\"1558524967\",\"firstName\":\"Abdo\",\"isEmailVerified\":false}},\"transactionType\":\"gift-nft\",\"nft\":{\"nftId\":\"kO5f7qLqKRgPrGhNPSG-Q\",\"categoryId\":\"_0iM8scD5fkKFi6l9tMoS\",\"created\":1646787948593,\"filePath\":\"http://example-bucket.s3-website.us-west-2.amazonaws.com/photo.jpg\",\"description\":\" \",\"collectionId\":\"_0iM8scD5fkKFi6l9tMo0\",\"transactionId\":\"mhrwnm-hGcMC2MGC4Q_Q6\",\"tags\":[\"real\"],\"ownerWalletId\":\"nnnx-user-signup115.near\",\"title\":\" \"},\"sender\":{\"walletId\":\"nnnx-user-signup115.near\",\"user\":{\"lastName\":\"kd\",\"userId\":\"YtK6iqpD04QVvbiptx5M8\",\"status\":\"active\",\"created\":1646736969303,\"isPhoneVerified\":false,\"email\":\"nnnx-user-signup115@mailinator.com\",\"firstName\":\"reena\",\"isEmailVerified\":false,\"walletName\":\"nnnx-user-signup115.near\",\"iat\":1646929129,\"exp\":1647015529,\"walletId\":\"nnnx-user-signup115.near\"},\"jwt\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsYXN0TmFtZSI6ImtkIiwidXNlcklkIjoiWXRLNmlxcEQwNFFWdmJpcHR4NU04Iiwic3RhdHVzIjoiYWN0aXZlIiwiY3JlYXRlZCI6MTY0NjczNjk2OTMwMywiaXNQaG9uZVZlcmlmaWVkIjpmYWxzZSwiZW1haWwiOiJubm54LXVzZXItc2lnbnVwMTE1QG1haWxpbmF0b3IuY29tIiwiZmlyc3ROYW1lIjoicmVlbmEiLCJpc0VtYWlsVmVyaWZpZWQiOmZhbHNlLCJ3YWxsZXROYW1lIjoibm5ueC11c2VyLXNpZ251cDExNS5uZWFyIiwiaWF0IjoxNjQ2OTI5MTI5LCJleHAiOjE2NDcwMTU1Mjl9.xt659esSYzK5q02lE4n75LMjkRp9tSpwCAvaZ4DM0nA\"}}",
+      "attributes": {
+        "ApproximateReceiveCount": "1",
+        "SentTimestamp": "1646959687004",
+        "SenderId": "AROATJZRO4GD6Q23CFO3E:nfts-service-dev-gift-nft",
+        "ApproximateFirstReceiveTimestamp": "1646959687023"
+      },
+      "messageAttributes": {},
+      "md5OfBody": "437142fd6dc237d4a59dc366e3e81501",
+      "md5OfMessageAttributes": null,
+      "eventSource": "aws:sqs",
+      "eventSourceARN": "arn:aws:sqs:us-east-1:227200131463:nfts-service-dev-sendNftGiftQueue",
+      "awsRegion": "us-east-1"
+    }
+  ]
+}

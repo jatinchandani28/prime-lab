@@ -1,0 +1,7 @@
+login-user:
+  handler: lambda/login-user/index.handler
+  description: ""
+  events:
+    - httpApi:
+        path: /users/login
+        method: post 

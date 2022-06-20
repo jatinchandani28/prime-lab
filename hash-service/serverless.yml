@@ -1,0 +1,49 @@
+service: hash-service
+
+frameworkVersion: '3'
+
+plugins:
+  - serverless-iam-roles-per-function
+  - serverless-offline
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: ${file(../serverless-config.json):region}
+  stage: ${opt:stage, 'dev'}
+  timeout: 5
+  environment:
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1 # https://go.aws/3InkVao
+    REGION: ${self:provider.region}
+
+  httpApi:
+    id: !ImportValue NearGatewayHttpApiId
+  iam:
+    role:
+      statements: []
+
+custom:
+  hash-service:
+    dynamodb:
+      hashes:
+        name: ${ssm:/hashes-service/dynamodb/hashes/name}
+        arn: ${ssm:/hashes-service/dynamodb/hashes/arn}
+        streamArn: ${ssm:/hashes-service/dynamodb/hashes/streamArn}
+
+
+### TODO: Package each file into a separate zip file
+#package:
+#  individually: true
+#  excludeDevDependencies: true
+#  patterns:
+#    - '!**/*'
+
+functions:
+  - ${file(./lambda/createHash/config.yml)}
+  - ${file(./lambda/verifyHash/config.yml)}
+
+
+resources:
+  - Description: Hashing Service API stack
+### Lambda
+  - ${file(./lambda/permission.yml)}
+

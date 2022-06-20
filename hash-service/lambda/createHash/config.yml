@@ -1,0 +1,21 @@
+createHash:
+  handler: lambda/createHash/index.handler
+  description: "Allows user to create a hash from an input"
+  events:
+    - httpApi:
+        path: /hashes
+        method: post
+## TODO: fix Error: Serverless Offline only supports retrieving JWT from the headers
+#        authorizer:
+#          type: jwt
+#          id: !ImportValue NearGatewayAuthorizerId
+  environment:
+    TABLE_NAME_HASHES: ${self:custom.hash-service.dynamodb.hashes.name}
+  iamRoleStatementsInherit: true
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:UpdateItem
+      Resource:
+        - ${self:custom.hash-service.dynamodb.hashes.arn}
+

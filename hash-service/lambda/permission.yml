@@ -1,0 +1,7 @@
+Resources:
+  CreateHashLambdaPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !GetAtt CreateHashLambdaFunction.Arn
+      Principal: ${aws:accountId}
